@@ -13,7 +13,7 @@ export default function CriarLogin() {
                     <input type="password" placeholder="Password" />
                     <input type="password" placeholder="Confirmar Password" />
                 </div>
-                <div id={styles["login-redirect"]} onClick={() => navigate("/login")}>Já tem uma Conta?</div>
+                <div id={styles["login-redirect"]} onClick={() => navigate("/")}>Já tem uma Conta?</div>
                 <button>Registrar</button>
             </div>
         </div>
