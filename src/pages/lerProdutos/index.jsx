@@ -1,7 +1,10 @@
+import { DataContext } from '../../contexts/Data.jsx';
 import styles from './produtos.module.css';
-import { produtos } from "./produtos.js";
+// import { produtos } from "./produtos.js";
+import { useContext } from 'react';
 
 export default function LerProdutos() {
+    const {produtos} = useContext(DataContext);
     return (
         <>
             <div className={styles.container}>

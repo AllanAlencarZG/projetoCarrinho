@@ -1,12 +1,16 @@
 import styles from './gerenciarProdutos.module.css';
-import { produtos } from "./produtos.js";
+// import { produtos } from "./produtos.js";
 import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Modal, Box, TextField, Button } from "@mui/material";
+import { AtualizarProduto, deletarProduto } from '../../data/fetchProdutos.js';
+import { DataContext } from '../../contexts/Data.jsx';
 
 export default function GerenciarProdutos() {
     const [open, setOpen] = useState(false);
     const [produtoEdit, setProdutoEdit] = useState(null);
+
+    const {produtos} = useContext(DataContext);
 
     const handleOpen = (produto) => {
         setProdutoEdit(produto);
@@ -22,10 +26,19 @@ export default function GerenciarProdutos() {
         setProdutoEdit({ ...produtoEdit, [e.target.name]: e.target.value });
     };
 
-    const handleSalvar = () => {
-        // Lógica para salvar alterações
+    const handleAtualizar = () => {
+
+        AtualizarProduto(produtoEdit.id, produtoEdit.nome, parseFloat(produtoEdit.valor), produtoEdit.imagem);
+        window.location.reload();
+        
         handleClose();
     };
+
+    async function handledeletar(id) {
+        console.log(id);
+        await deletarProduto(id);
+        window.location.reload();
+    }
 
     return (
         <>
@@ -44,7 +57,7 @@ export default function GerenciarProdutos() {
                                 <div className={styles.btn} onClick={() => handleOpen(item)}>
                                     <FaRegEdit />
                                 </div>
-                                <div className={styles.btn}>
+                                <div className={styles.btn} onClick={() => handledeletar(item.id)}>
                                     <FaRegTrashAlt />
                                 </div>
                             </div>
@@ -103,7 +116,7 @@ export default function GerenciarProdutos() {
                         sx={{ input: { color: "#fff" } }}
                     />
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
-                        <Button variant="contained" color="primary" onClick={handleSalvar}>
+                        <Button variant="contained" color="primary" onClick={handleAtualizar}>
                             Salvar
                         </Button>
                         <Button variant="outlined" color="secondary" onClick={handleClose}>

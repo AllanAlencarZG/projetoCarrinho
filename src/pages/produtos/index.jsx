@@ -1,8 +1,11 @@
 import styles from './produtos.module.css';
 import Carrinho from "./carrinho";
-import { produtos } from "./produtos.js";
+import { useContext } from 'react';
+import { DataContext } from '../../contexts/Data';
+// import { produtos } from "./produtos.js";
 
 export default function Produtos() {
+    const {produtos} = useContext(DataContext);
     return (
         <>
             <div className={styles.container}>
